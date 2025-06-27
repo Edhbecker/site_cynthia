@@ -1,4 +1,5 @@
 import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -106,3 +107,15 @@ export type Contact = typeof contacts.$inferSelect;
 
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
+
+// Relations
+export const projectsRelations = relations(projects, ({ many }) => ({
+  testimonials: many(testimonials),
+}));
+
+export const testimonialsRelations = relations(testimonials, ({ one }) => ({
+  project: one(projects, {
+    fields: [testimonials.projectTitle],
+    references: [projects.title],
+  }),
+}));

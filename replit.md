@@ -106,6 +106,7 @@ The application uses five main entities:
 ## Changelog
 
 - June 27, 2025. Initial setup
+- June 27, 2025. PostgreSQL database integration completed - migrated from memory storage to DatabaseStorage class with proper Drizzle ORM integration
 
 ## User Preferences
 

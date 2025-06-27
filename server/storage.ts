@@ -1,11 +1,22 @@
-import { 
-  users, projects, testimonials, contacts, blogPosts,
-  type User, type InsertUser,
-  type Project, type InsertProject,
-  type Testimonial, type InsertTestimonial,
-  type Contact, type InsertContact,
-  type BlogPost, type InsertBlogPost
+import {
+  users,
+  projects,
+  testimonials,
+  contacts,
+  blogPosts,
+  type User,
+  type InsertUser,
+  type Project,
+  type InsertProject,
+  type Testimonial,
+  type InsertTestimonial,
+  type Contact,
+  type InsertContact,
+  type BlogPost,
+  type InsertBlogPost,
 } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   // Users
@@ -35,225 +46,173 @@ export interface IStorage {
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  private projects: Map<number, Project>;
-  private testimonials: Map<number, Testimonial>;
-  private contacts: Map<number, Contact>;
-  private blogPosts: Map<number, BlogPost>;
-  private currentId: { [key: string]: number };
-
+export class DatabaseStorage implements IStorage {
   constructor() {
-    this.users = new Map();
-    this.projects = new Map();
-    this.testimonials = new Map();
-    this.contacts = new Map();
-    this.blogPosts = new Map();
-    this.currentId = {
-      users: 1,
-      projects: 1,
-      testimonials: 1,
-      contacts: 1,
-      blogPosts: 1,
-    };
-
-    // Initialize with sample data
+    // Initialize with sample data if tables are empty
     this.initializeSampleData();
   }
 
-  private initializeSampleData() {
-    // Sample projects
-    const sampleProjects: InsertProject[] = [
-      {
-        title: "Refúgio Zen",
-        description: "Um espaço de tranquilidade e equilíbrio, onde cada elemento foi pensado para promover bem-estar e serenidade.",
-        imageUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-        category: "Residencial",
-        featured: true,
-      },
-      {
-        title: "Casa dos Sonhos",
-        description: "Onde cada detalhe conta uma história de amor, funcionalidade e beleza em perfeita harmonia.",
-        imageUrl: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-        category: "Residencial",
-        featured: true,
-      },
-      {
-        title: "Aconchego Moderno",
-        description: "Funcionalidade e conforto em perfeita harmonia, criando um ambiente acolhedor e contemporâneo.",
-        imageUrl: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-        category: "Residencial",
-        featured: true,
-      },
-      {
-        title: "Escritório Criativo",
-        description: "Espaço que inspira e estimula a criatividade, combinando produtividade com bem-estar.",
-        imageUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-        category: "Comercial",
-        featured: false,
-      },
-      {
-        title: "Fachada Renovada",
-        description: "Transformação que encanta desde a primeira vista, valorizando o imóvel e criando identidade.",
-        imageUrl: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-        category: "Fachada",
-        featured: false,
-      },
-      {
-        title: "Cozinha do Coração",
-        description: "O centro da casa onde memórias são criadas, combinando funcionalidade e acolhimento.",
-        imageUrl: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-        category: "Residencial",
-        featured: false,
-      },
-    ];
+  private async initializeSampleData() {
+    try {
+      // Check if we already have data
+      const existingProjects = await db.select().from(projects).limit(1);
+      if (existingProjects.length > 0) return;
 
-    sampleProjects.forEach(project => this.createProject(project));
+      // Sample projects
+      const sampleProjects: InsertProject[] = [
+        {
+          title: "Refúgio Zen",
+          description: "Um espaço de tranquilidade e equilíbrio, onde cada elemento foi pensado para promover bem-estar e serenidade.",
+          imageUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+          category: "Residencial",
+          featured: true,
+        },
+        {
+          title: "Casa dos Sonhos",
+          description: "Onde cada detalhe conta uma história de amor, funcionalidade e beleza em perfeita harmonia.",
+          imageUrl: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+          category: "Residencial",
+          featured: true,
+        },
+        {
+          title: "Loft Urbano",
+          description: "Modernidade e sofisticação se encontram neste projeto inovador que redefine o conceito de moradia urbana.",
+          imageUrl: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+          category: "Comercial",
+          featured: false,
+        },
+      ];
 
-    // Sample testimonials
-    const sampleTestimonials: InsertTestimonial[] = [
-      {
-        clientName: "Maria Silva",
-        projectTitle: "Casa dos Sonhos",
-        content: "A Cynthia conseguiu capturar exatamente quem eu sou e transformou isso no meu lar. Cada cantinho tem a minha personalidade, mas com uma funcionalidade que eu nunca imaginei ser possível. É mais que arquitetura, é amor materializado.",
-        rating: 5,
-        featured: true,
-      },
-      {
-        clientName: "Ana Santos",
-        projectTitle: "Apartamento Aconchego",
-        content: "O cuidado da Cynthia com cada detalhe me impressionou. Ela pensou em coisas que eu nem sabia que precisava. Meu apartamento se tornou um refúgio verdadeiro, onde cada momento em casa é especial. Ela tem um dom único!",
-        rating: 5,
-        featured: true,
-      },
-      {
-        clientName: "Carla Mendes",
-        projectTitle: "Reforma Completa",
-        content: "Reformar uma casa pode ser estressante, mas com a Cynthia foi uma jornada incrível. Ela esteve presente em cada etapa, me tranquilizando e garantindo que tudo saísse perfeito. O resultado superou todos os meus sonhos!",
-        rating: 5,
-        featured: true,
-      },
-    ];
+      // Sample testimonials
+      const sampleTestimonials: InsertTestimonial[] = [
+        {
+          clientName: "Maria Silva",
+          projectTitle: "Casa dos Sonhos",
+          content: "Cynthia transformou nossa casa em algo muito além do que imaginávamos. O Método Coração Arquitetônico® realmente fez a diferença!",
+          rating: 5,
+          featured: true,
+        },
+        {
+          clientName: "João Santos",
+          projectTitle: "Refúgio Zen",
+          content: "Profissional excepcional! Entendeu exatamente nossa necessidade de um espaço acolhedor e funcional.",
+          rating: 5,
+          featured: true,
+        },
+      ];
 
-    sampleTestimonials.forEach(testimonial => this.createTestimonial(testimonial));
+      // Insert sample data
+      await db.insert(projects).values(sampleProjects);
+      await db.insert(testimonials).values(sampleTestimonials);
+    } catch (error) {
+      console.error("Error initializing sample data:", error);
+    }
   }
 
-  // Users
+  // User methods
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentId.users++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
     return user;
   }
 
-  // Projects
+  // Project methods
   async getProjects(): Promise<Project[]> {
-    return Array.from(this.projects.values()).sort((a, b) => 
-      new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
-    );
+    return await db.select().from(projects).orderBy(projects.createdAt);
   }
 
   async getFeaturedProjects(): Promise<Project[]> {
-    return Array.from(this.projects.values())
-      .filter(project => project.featured)
-      .sort((a, b) => new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime());
+    return await db
+      .select()
+      .from(projects)
+      .where(eq(projects.featured, true))
+      .orderBy(projects.createdAt);
   }
 
   async getProject(id: number): Promise<Project | undefined> {
-    return this.projects.get(id);
+    const [project] = await db.select().from(projects).where(eq(projects.id, id));
+    return project || undefined;
   }
 
   async createProject(insertProject: InsertProject): Promise<Project> {
-    const id = this.currentId.projects++;
-    const project: Project = { 
-      ...insertProject, 
-      id, 
-      createdAt: new Date()
-    };
-    this.projects.set(id, project);
+    const [project] = await db
+      .insert(projects)
+      .values(insertProject)
+      .returning();
     return project;
   }
 
-  // Testimonials
+  // Testimonial methods
   async getTestimonials(): Promise<Testimonial[]> {
-    return Array.from(this.testimonials.values()).sort((a, b) => 
-      new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
-    );
+    return await db.select().from(testimonials).orderBy(testimonials.createdAt);
   }
 
   async getFeaturedTestimonials(): Promise<Testimonial[]> {
-    return Array.from(this.testimonials.values())
-      .filter(testimonial => testimonial.featured)
-      .sort((a, b) => new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime());
+    return await db
+      .select()
+      .from(testimonials)
+      .where(eq(testimonials.featured, true))
+      .orderBy(testimonials.createdAt);
   }
 
   async createTestimonial(insertTestimonial: InsertTestimonial): Promise<Testimonial> {
-    const id = this.currentId.testimonials++;
-    const testimonial: Testimonial = { 
-      ...insertTestimonial, 
-      id, 
-      createdAt: new Date()
-    };
-    this.testimonials.set(id, testimonial);
+    const [testimonial] = await db
+      .insert(testimonials)
+      .values(insertTestimonial)
+      .returning();
     return testimonial;
   }
 
-  // Contacts
+  // Contact methods
   async getContacts(): Promise<Contact[]> {
-    return Array.from(this.contacts.values()).sort((a, b) => 
-      new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
-    );
+    return await db.select().from(contacts).orderBy(contacts.createdAt);
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
-    const id = this.currentId.contacts++;
-    const contact: Contact = { 
-      ...insertContact, 
-      id, 
-      status: "new",
-      createdAt: new Date()
-    };
-    this.contacts.set(id, contact);
+    const [contact] = await db
+      .insert(contacts)
+      .values(insertContact)
+      .returning();
     return contact;
   }
 
-  // Blog Posts
+  // Blog post methods
   async getBlogPosts(): Promise<BlogPost[]> {
-    return Array.from(this.blogPosts.values()).sort((a, b) => 
-      new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
-    );
+    return await db.select().from(blogPosts).orderBy(blogPosts.createdAt);
   }
 
   async getPublishedBlogPosts(): Promise<BlogPost[]> {
-    return Array.from(this.blogPosts.values())
-      .filter(post => post.published)
-      .sort((a, b) => new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime());
+    return await db
+      .select()
+      .from(blogPosts)
+      .where(eq(blogPosts.published, true))
+      .orderBy(blogPosts.createdAt);
   }
 
   async getBlogPost(id: number): Promise<BlogPost | undefined> {
-    return this.blogPosts.get(id);
+    const [blogPost] = await db.select().from(blogPosts).where(eq(blogPosts.id, id));
+    return blogPost || undefined;
   }
 
   async createBlogPost(insertBlogPost: InsertBlogPost): Promise<BlogPost> {
-    const id = this.currentId.blogPosts++;
-    const blogPost: BlogPost = { 
-      ...insertBlogPost, 
-      id, 
-      createdAt: new Date()
-    };
-    this.blogPosts.set(id, blogPost);
+    const [blogPost] = await db
+      .insert(blogPosts)
+      .values(insertBlogPost)
+      .returning();
     return blogPost;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
