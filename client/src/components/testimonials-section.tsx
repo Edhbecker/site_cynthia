@@ -14,12 +14,12 @@ export default function TestimonialsSection() {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 smooth-entrance">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Quem já viveu a
-            <span className="text-rose-antique"> experiência</span>
+            O que dizem sobre
+            <span className="text-rose-antique"> meu trabalho</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Clientes que confiaram em mim compartilham como foi transformar seus espaços
-            com sensibilidade, técnica e acompanhamento próximo.
+            Depoimentos de quem confiou no meu trabalho e viu seus ambientes ganhar
+            forma com dedicação, atenção e cuidado em cada detalhe.
           </p>
         </div>
 

@@ -79,7 +79,28 @@ export class DatabaseStorage implements IStorage {
           description: "Modernidade e sofisticação se encontram neste projeto inovador que redefine o conceito de moradia urbana.",
           imageUrl: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
           category: "Comercial",
-          featured: false,
+          featured: true,
+        },
+        {
+          title: "Escritório Criativo",
+          description: "Um ambiente de trabalho que inspira criatividade e produtividade, com elementos naturais e iluminação planejada.",
+          imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+          category: "Comercial",
+          featured: true,
+        },
+        {
+          title: "Suíte Aconchegante",
+          description: "Um quarto que abraça e acolhe, com paleta suave e texturas que convidam ao descanso profundo.",
+          imageUrl: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+          category: "Residencial",
+          featured: true,
+        },
+        {
+          title: "Cozinha Gourmet",
+          description: "Funcionalidade e elegância em um espaço gastronômico pensado para reunir família e amigos com conforto.",
+          imageUrl: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+          category: "Residencial",
+          featured: true,
         },
       ];
 
@@ -88,14 +109,21 @@ export class DatabaseStorage implements IStorage {
         {
           clientName: "Maria Silva",
           projectTitle: "Casa dos Sonhos",
-          content: "Cynthia transformou nossa casa em algo muito além do que imaginávamos. O Método Coração Arquitetônico® realmente fez a diferença!",
+          content: "Cynthia transformou nossa casa em algo muito além do que imaginávamos. O Método Coração Arquitetônico® realmente fez a diferença! Cada canto tem nossa personalidade.",
           rating: 5,
           featured: true,
         },
         {
           clientName: "João Santos",
           projectTitle: "Refúgio Zen",
-          content: "Profissional excepcional! Entendeu exatamente nossa necessidade de um espaço acolhedor e funcional.",
+          content: "Profissional excepcional! Entendeu exatamente nossa necessidade de um espaço acolhedor e funcional. O resultado superou todas as expectativas.",
+          rating: 5,
+          featured: true,
+        },
+        {
+          clientName: "Ana Oliveira",
+          projectTitle: "Loft Urbano",
+          content: "A sensibilidade da Cynthia em entender o que eu precisava foi incrível. Meu apartamento agora reflete exatamente quem eu sou. Recomendo de olhos fechados!",
           rating: 5,
           featured: true,
         },
@@ -104,6 +132,7 @@ export class DatabaseStorage implements IStorage {
       // Insert sample data
       await db.insert(projects).values(sampleProjects);
       await db.insert(testimonials).values(sampleTestimonials);
+      console.log("✅ Dados de exemplo inseridos com sucesso no banco de dados!");
     } catch (error) {
       console.error("Error initializing sample data:", error);
     }

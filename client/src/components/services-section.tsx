@@ -1,37 +1,37 @@
-import { Home, Building, Wrench, Palette, Sofa, Compass } from "lucide-react";
+import { Home, Sofa, Lamp, Paintbrush, Ruler, PenTool } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function ServicesSection() {
   const services = [
     {
-      icon: Home,
-      title: "Projetos de Interiores",
-      description: "Residencial e comercial com toque feminino e sensível",
-    },
-    {
-      icon: Building,
-      title: "Projetos Arquitetônicos",
-      description: "Com aprovação legal e cuidado em cada detalhe",
-    },
-    {
-      icon: Wrench,
-      title: "Reformas e Retrofit",
-      description: "Transformação cuidadosa de imóveis existentes",
-    },
-    {
-      icon: Palette,
-      title: "Revitalização de Fachadas",
-      description: "Primeira impressão que encanta e valoriza",
-    },
-    {
       icon: Sofa,
-      title: "Ambientação Completa",
-      description: "Móveis e decoração com personalidade única",
+      title: "Projetos de Interiores",
+      description: "Desenvolvimento de ambientes residenciais com foco em conforto, estética e funcionalidade",
     },
     {
-      icon: Compass,
-      title: "Projetos Técnicos",
-      description: "Elétrico, hidrossanitário, bombeiros, acessibilidade",
+      icon: Ruler,
+      title: "Detalhamento Técnico",
+      description: "Detalhamentos construtivos, marcenaria planejada e especificações de materiais",
+    },
+    {
+      icon: Lamp,
+      title: "Iluminação e Ambientação",
+      description: "Projetos de iluminação que valorizam cada ambiente com aconchego e personalidade",
+    },
+    {
+      icon: PenTool,
+      title: "Modelagem 3D e Renderização",
+      description: "Visualização realista dos projetos em SketchUp, Lumion, Enscape e 5D Render",
+    },
+    {
+      icon: Paintbrush,
+      title: "Composição de Materiais",
+      description: "Seleção e harmonização de revestimentos, cores, texturas e acabamentos",
+    },
+    {
+      icon: Home,
+      title: "Consultoria e Apoio Projetual",
+      description: "Orientação técnica em todas as etapas, do briefing à execução do projeto",
     },
   ];
 
@@ -40,11 +40,12 @@ export default function ServicesSection() {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 smooth-entrance">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            O que entregamos
-            <span className="text-rose-antique"> na prática</span>
+            O que posso desenvolver
+            <span className="text-rose-antique"> para você</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Muito além de ideias. Entregamos soluções completas, prontas para transformar seus sonhos em realidade.
+            Soluções completas em projetos de interiores, com atenção ao detalhamento técnico,
+            à escolha de materiais e à personalização de cada ambiente.
           </p>
         </div>
 

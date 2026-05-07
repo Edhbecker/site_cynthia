@@ -2,27 +2,27 @@ export default function CreativeProcess() {
   const processSteps = [
     {
       number: 1,
-      title: "Conversa do Coração",
+      title: "Briefing e Escuta",
       description:
-        "Começamos com uma conversa íntima sobre seus sonhos, rotina e o que realmente importa no seu espaço. É aqui que nasce a conexão emocional do projeto.",
+        "Tudo começa com uma conversa atenta sobre suas necessidades, rotina e expectativas. Entender quem você é e como vive é o ponto de partida para um projeto com identidade e propósito.",
     },
     {
       number: 2,
-      title: "Moodboard Emocional",
+      title: "Estudo e Conceito",
       description:
-        "Criamos um painel visual que traduz suas emoções em cores, texturas e sensações. É a alma do projeto tomando forma visual.",
+        "Com base no briefing, desenvolvo referências visuais, paleta de cores, seleção de materiais e o conceito do projeto — traduzindo suas ideias em uma linguagem visual clara e coerente.",
     },
     {
       number: 3,
-      title: "Anteprojeto em 3D",
+      title: "Desenvolvimento e Visualização 3D",
       description:
-        "Você visualiza seu espaço transformado antes mesmo da execução. Cada detalhe pensado com carinho e precisão técnica.",
+        "O projeto ganha forma com plantas, layouts e imagens realistas em 3D. Você visualiza cada ambiente antes da execução, com todos os detalhes de mobiliário, iluminação e acabamentos.",
     },
     {
       number: 4,
-      title: "Acompanhamento Carinhoso",
+      title: "Detalhamento e Acompanhamento",
       description:
-        "Estou ao seu lado durante toda a execução, garantindo que cada detalhe saia exatamente como sonhamos juntas.",
+        "Finalizo com detalhamentos técnicos, especificações de materiais e marcenaria planejada — garantindo que cada elemento seja executado com precisão e fidelidade ao projeto.",
     },
   ];
 
@@ -31,11 +31,11 @@ export default function CreativeProcess() {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 smooth-entrance">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Meu Processo
+            Processo
             <span className="text-rose-antique"> Criativo</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Uma jornada sensível e técnica, onde cada etapa é pensada para criar espaços que tocam o coração.
+            Do primeiro contato à entrega final — cada etapa é conduzida com cuidado, clareza e comprometimento técnico.
           </p>
         </div>
 

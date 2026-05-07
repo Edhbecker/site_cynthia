@@ -21,7 +21,6 @@ export default function Home() {
       <ServicesSection />
       <CreativeProcess />
       <JourneySection />
-      <TestimonialsSection />
       <ContactSection />
       <Footer />
     </div>

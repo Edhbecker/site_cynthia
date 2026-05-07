@@ -99,7 +99,7 @@ npm run db:studio    # Interface visual do banco (Drizzle Studio)
 
 ## 🚀 Deploy
 
-O projeto está configurado para deploy no Replit, mas pode ser facilmente adaptado para outras plataformas como Vercel, Railway, ou Heroku.
+O projeto pode ser implantado em plataformas como Vercel, Railway, Render ou Heroku.
 
 ## 📄 Licença
 

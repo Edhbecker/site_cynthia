@@ -59,8 +59,18 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
   }
+}
+
+/* Custom font styling */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
 }
 
 /* Custom architectural elements */
@@ -83,9 +93,10 @@
 }
 
 .glass-morphism {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .gradient-rose-antique {
@@ -166,11 +177,26 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom font styling for feminine touch */
-.font-playfair {
-  font-family: 'Playfair Display', serif;
+/* Selection color */
+::selection {
+  background-color: hsl(0, 25%, 66%, 0.3);
+  color: hsl(20, 14.3%, 4.1%);
 }
 
-.font-inter {
-  font-family: 'Inter', sans-serif;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(48, 36%, 96%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0, 25%, 66%, 0.4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(0, 25%, 66%, 0.6);
 }

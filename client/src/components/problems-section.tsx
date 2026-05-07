@@ -1,49 +1,64 @@
-import { X } from "lucide-react";
+import { Briefcase, GraduationCap, Building2, Ruler } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function ProblemsSection() {
-  const problems = [
+  const experiences = [
     {
-      title: "Projetos sem personalidade",
-      description: "Espaços genéricos que não refletem quem você realmente é",
+      icon: Building2,
+      title: "Órgãos Públicos",
+      description:
+        "Atuei no Ministério Público de SC e na SEDUR, com análise e aprovação de projetos arquitetônicos, licenças para construção, regularização, Habite-se e atendimento ao público.",
     },
     {
-      title: "Ambientes mal planejados",
-      description: "Espaços que não funcionam para o seu dia a dia",
+      icon: Ruler,
+      title: "Topografia e Soluções Ambientais",
+      description:
+        "Na B&C Topografia, trabalhei com transformação de dados de campo em desenhos técnicos, conversão de coordenadas geográficas e elaboração de mapas, plantas e relatórios.",
     },
     {
-      title: "Falta de orientação feminina",
-      description: "Projetos que não consideram sensibilidade e detalhes especiais",
+      icon: Briefcase,
+      title: "Escritórios de Arquitetura",
+      description:
+        "Na Vecctiza Empreendimentos e no escritório Elisete Giachini, auxiliei na elaboração de projetos arquitetônicos, paisagismo, complementares e detalhamentos de interiores.",
     },
     {
-      title: "Estresse e frustração",
-      description: "Retrabalho, gastos extras e resultados decepcionantes",
+      icon: GraduationCap,
+      title: "Marcenaria e Interiores",
+      description:
+        "Na X Móveis Marcenaria Sob Medida, atuei com projetos de interiores, visitas técnicas, medições e encaminhamento de projetos para produção.",
     },
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section id="experiencia" className="py-20 bg-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 smooth-entrance">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Muitas pessoas começam uma obra
-            <span className="text-rose-antique"> cheia de sonhos...</span>
+            Experiência
+            <span className="text-rose-antique"> Profissional</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Mas encontram pelo caminho frustrações que poderiam ser evitadas com o olhar certo.
+            Construí minha trajetória em diferentes áreas da construção civil —
+            do canteiro de obras ao detalhamento de interiores —, o que me proporcionou uma visão ampla, técnica e prática do processo projetual.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {problems.map((problem, index) => (
-            <div key={index} className="text-center p-6 hover-lift">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <X className="text-red-500 w-8 h-8" />
-              </div>
-              <h3 className="font-playfair text-xl font-semibold text-gray-800 mb-3">
-                {problem.title}
-              </h3>
-              <p className="text-gray-600">{problem.description}</p>
-            </div>
+          {experiences.map((exp, index) => (
+            <Card
+              key={index}
+              className="glass-morphism rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover-lift"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 gradient-rose-antique rounded-full flex items-center justify-center mx-auto mb-6">
+                  <exp.icon className="text-white w-8 h-8" />
+                </div>
+                <h3 className="font-playfair text-xl font-semibold text-gray-800 mb-3">
+                  {exp.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{exp.description}</p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { scrollToSection } from "@/lib/utils";
+import imagemProfissional from "@localassets/imagem_profissional.jpeg";
 
 export default function JourneySection() {
   return (
@@ -9,31 +10,34 @@ export default function JourneySection() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="smooth-entrance">
               <img
-                src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=1000"
-                alt="Professional portrait of Cynthia in her architectural workspace"
+                src={imagemProfissional}
+                alt="Cynthia Aparecida da Silva — Acadêmica de Arquitetura e Urbanismo"
                 className="w-full rounded-3xl shadow-xl hover-lift"
               />
             </div>
             <div className="smooth-entrance">
               <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                Minha
-                <span className="text-rose-antique"> Jornada</span>
+                Sobre
+                <span className="text-rose-antique"> Cynthia</span>
               </h2>
               <div className="space-y-6 text-gray-700 leading-relaxed">
                 <p>
-                  Sou <strong>Cynthia Aparecida da Silva</strong>, arquiteta apaixonada por criar espaços
-                  que tocam a alma. Com mais de 10 anos de experiência, descobri que a verdadeira
-                  arquitetura vai além da técnica — ela conecta emoções.
+                  Sou <strong>Cynthia Aparecida da Silva</strong>, acadêmica de Arquitetura e Urbanismo
+                  pela UNOESC de Chapecó, atualmente no 9º período, e Técnica em Edificações. Minha
+                  trajetória reúne experiências práticas em escritórios de arquitetura, engenharia,
+                  topografia, interiores, marcenaria sob medida e órgãos públicos — vivências que
+                  me proporcionaram uma visão ampla e realista do processo projetual.
                 </p>
                 <p>
-                  Minha abordagem feminina e sensível me permite enxergar detalhes que fazem toda a diferença:
-                  aquele cantinho especial para o seu momento de pausa, a iluminação perfeita para suas
-                  manhãs de domingo, os materiais que acolhem e inspiram.
+                  Busco unir criatividade, conhecimento técnico e funcionalidade em cada projeto,
+                  desenvolvendo soluções que valorizam estética, conforto, organização dos espaços
+                  e atenção aos detalhes. Acredito que um bom projeto nasce da escuta atenta e do
+                  cuidado com cada etapa — do conceito inicial à entrega final.
                 </p>
                 <p>
-                  Acredito que cada projeto tem uma história única para contar. Meu papel é ser a
-                  tradutora dos seus sonhos, transformando-os em espaços reais, funcionais e
-                  profundamente seus.
+                  Meu objetivo é transformar ideias em ambientes reais, pensados com sensibilidade,
+                  propósito e uma base técnica sólida — sempre em constante evolução profissional
+                  e acadêmica.
                 </p>
               </div>
               <div className="mt-8">
