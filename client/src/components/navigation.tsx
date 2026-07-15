@@ -59,7 +59,7 @@ export default function Navigation() {
                 <span className="text-white font-playfair font-bold text-lg">C</span>
               </div>
               <span className="font-playfair text-xl font-semibold text-gray-800">
-                Cynthia Aparecida
+                Cynthia A. da Silva
               </span>
             </div>
           </Link>

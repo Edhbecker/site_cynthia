@@ -6,7 +6,6 @@ import ProjectsGallery from "@/components/projects-gallery";
 import ServicesSection from "@/components/services-section";
 import CreativeProcess from "@/components/creative-process";
 import JourneySection from "@/components/journey-section";
-import TestimonialsSection from "@/components/testimonials-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
 

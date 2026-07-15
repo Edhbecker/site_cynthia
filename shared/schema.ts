@@ -19,16 +19,6 @@ export const projects = pgTable("projects", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const testimonials = pgTable("testimonials", {
-  id: serial("id").primaryKey(),
-  clientName: text("client_name").notNull(),
-  projectTitle: text("project_title").notNull(),
-  content: text("content").notNull(),
-  rating: integer("rating").notNull(),
-  featured: boolean("featured").default(false),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
 export const contacts = pgTable("contacts", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
@@ -37,16 +27,6 @@ export const contacts = pgTable("contacts", {
   projectType: text("project_type").notNull(),
   message: text("message").notNull(),
   status: text("status").default("new"),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-export const blogPosts = pgTable("blog_posts", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  content: text("content").notNull(),
-  excerpt: text("excerpt").notNull(),
-  imageUrl: text("image_url"),
-  published: boolean("published").default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -60,14 +40,6 @@ export const insertProjectSchema = createInsertSchema(projects).pick({
   description: true,
   imageUrl: true,
   category: true,
-  featured: true,
-});
-
-export const insertTestimonialSchema = createInsertSchema(testimonials).pick({
-  clientName: true,
-  projectTitle: true,
-  content: true,
-  rating: true,
   featured: true,
 });
 
@@ -85,37 +57,53 @@ export const insertContactSchema = createInsertSchema(contacts).pick({
   message: z.string().min(10, "Mensagem deve ter pelo menos 10 caracteres"),
 });
 
-export const insertBlogPostSchema = createInsertSchema(blogPosts).pick({
-  title: true,
-  content: true,
-  excerpt: true,
-  imageUrl: true,
-  published: true,
-});
-
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
 export type InsertProject = z.infer<typeof insertProjectSchema>;
 export type Project = typeof projects.$inferSelect;
 
-export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
-export type Testimonial = typeof testimonials.$inferSelect;
-
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type Contact = typeof contacts.$inferSelect;
 
+export const testimonials = pgTable("testimonials", {
+  id: serial("id").primaryKey(),
+  clientName: text("client_name").notNull(),
+  projectTitle: text("project_title").notNull(),
+  content: text("content").notNull(),
+  rating: integer("rating").notNull(),
+  featured: boolean("featured").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const blogPosts = pgTable("blog_posts", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  imageUrl: text("image_url").notNull(),
+  published: boolean("published").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertTestimonialSchema = createInsertSchema(testimonials).pick({
+  clientName: true,
+  projectTitle: true,
+  content: true,
+  rating: true,
+  featured: true,
+});
+
+export const insertBlogPostSchema = createInsertSchema(blogPosts).pick({
+  title: true,
+  excerpt: true,
+  content: true,
+  imageUrl: true,
+  published: true,
+});
+
+export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
+export type Testimonial = typeof testimonials.$inferSelect;
+
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
-
-// Relations
-export const projectsRelations = relations(projects, ({ many }) => ({
-  testimonials: many(testimonials),
-}));
-
-export const testimonialsRelations = relations(testimonials, ({ one }) => ({
-  project: one(projects, {
-    fields: [testimonials.projectTitle],
-    references: [projects.title],
-  }),
-}));

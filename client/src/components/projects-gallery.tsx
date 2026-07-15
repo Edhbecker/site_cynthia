@@ -21,7 +21,7 @@ export default function ProjectsGallery() {
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Ambientes residenciais projetados com foco em conforto, funcionalidade, estética contemporânea
-            e aproveitamento inteligente dos espaços — cada detalhe pensado para criar lugares que
+            e aproveitamento inteligente dos espaços, cada detalhe pensado para criar lugares que
             acolhem e inspiram.
           </p>
         </div>

@@ -2,7 +2,7 @@ export default function CreativeProcess() {
   const processSteps = [
     {
       number: 1,
-      title: "Briefing e Escuta",
+      title: "Briefing",
       description:
         "Tudo começa com uma conversa atenta sobre suas necessidades, rotina e expectativas. Entender quem você é e como vive é o ponto de partida para um projeto com identidade e propósito.",
     },
@@ -10,7 +10,7 @@ export default function CreativeProcess() {
       number: 2,
       title: "Estudo e Conceito",
       description:
-        "Com base no briefing, desenvolvo referências visuais, paleta de cores, seleção de materiais e o conceito do projeto — traduzindo suas ideias em uma linguagem visual clara e coerente.",
+        "Com base no briefing, desenvolvo referências visuais, paleta de cores, seleção de materiais e o conceito do projeto, traduzindo suas ideias em uma linguagem visual clara e coerente.",
     },
     {
       number: 3,
@@ -22,7 +22,7 @@ export default function CreativeProcess() {
       number: 4,
       title: "Detalhamento e Acompanhamento",
       description:
-        "Finalizo com detalhamentos técnicos, especificações de materiais e marcenaria planejada — garantindo que cada elemento seja executado com precisão e fidelidade ao projeto.",
+        "Finalizo com detalhamentos técnicos, especificações de materiais e marcenaria planejada, garantindo que cada elemento seja executado com precisão e fidelidade ao projeto.",
     },
   ];
 
@@ -35,7 +35,7 @@ export default function CreativeProcess() {
             <span className="text-rose-antique"> Criativo</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Do primeiro contato à entrega final — cada etapa é conduzida com cuidado, clareza e comprometimento técnico.
+            Do primeiro contato à entrega final, cada etapa é conduzida com cuidado, clareza e comprometimento técnico.
           </p>
         </div>
 

@@ -149,9 +149,9 @@ export default function ProjectDetail() {
           {/* Quote */}
           <div className="bg-gradient-to-br from-rose-antique/10 to-sage-green/10 rounded-3xl p-8 md:p-12 text-center smooth-entrance mb-12">
             <p className="font-playfair text-2xl md:text-3xl text-gray-800 italic leading-relaxed mb-4">
-              "Projetar é dar forma às ideias — com técnica, sensibilidade e atenção a cada detalhe."
+              "Projetar é dar forma às ideias, com técnica, sensibilidade e atenção a cada detalhe."
             </p>
-            <p className="text-rose-antique font-medium">— Cynthia Aparecida da Silva</p>
+            <p className="text-rose-antique font-medium">Cynthia Aparecida da Silva</p>
           </div>
 
           {/* CTA */}

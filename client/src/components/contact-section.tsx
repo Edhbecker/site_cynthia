@@ -79,10 +79,12 @@ export default function ContactSection() {
                         <SelectValue placeholder="Selecione uma opção" />
                       </SelectTrigger>
                       <SelectContent>
+                        <SelectItem value="arquitetonico">Projeto Arquitetônico</SelectItem>
                         <SelectItem value="interiores">Projeto de Interiores</SelectItem>
+                        <SelectItem value="luminotecnico">Projeto Luminotécnico</SelectItem>
+                        <SelectItem value="reforma">Reforma e Readequação de Ambientes</SelectItem>
                         <SelectItem value="detalhamento">Detalhamento Técnico</SelectItem>
                         <SelectItem value="modelagem3d">Modelagem 3D e Renderização</SelectItem>
-                        <SelectItem value="consultoria">Consultoria e Orientação</SelectItem>
                         <SelectItem value="outro">Outro</SelectItem>
                       </SelectContent>
                     </Select>

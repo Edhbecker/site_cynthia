@@ -25,7 +25,7 @@ export default function HeroSection() {
 
           <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
             Sou acadêmica de Arquitetura e Urbanismo e Técnica em Edificações, com vivência prática em{" "}
-            <span className="font-semibold">projetos de interiores, detalhamento técnico e soluções funcionais</span> —
+            <span className="font-semibold">projetos de interiores, detalhamento técnico e soluções funcionais</span>,
             unindo criatividade e precisão em cada ambiente.
           </p>
 

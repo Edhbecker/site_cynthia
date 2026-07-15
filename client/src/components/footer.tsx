@@ -1,10 +1,11 @@
 export default function Footer() {
   const services = [
+    "Projeto Arquitetônico",
     "Projetos de Interiores",
+    "Projeto Luminotécnico",
+    "Reforma e Readequação de Ambientes",
     "Detalhamento Técnico",
     "Modelagem 3D e Renderização",
-    "Composição de Materiais",
-    "Consultoria e Apoio Projetual",
   ];
 
   return (
@@ -16,12 +17,12 @@ export default function Footer() {
               <div className="w-12 h-12 gradient-rose-antique rounded-full flex items-center justify-center">
                 <span className="text-white font-playfair font-bold text-lg">C</span>
               </div>
-              <span className="font-playfair text-xl font-semibold">Cynthia Aparecida</span>
+              <span className="font-playfair text-xl font-semibold">Cynthia A. da Silva</span>
             </div>
             <p className="text-gray-300 leading-relaxed">
               Sou acadêmica de Arquitetura e Urbanismo e Técnica em Edificações,
               com experiência prática em projetos de interiores, detalhamento
-              técnico e desenvolvimento de soluções funcionais. Chapecó — SC.
+              técnico e desenvolvimento de soluções funcionais. Chapecó, SC.
             </p>
           </div>
 
@@ -102,8 +103,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 Cynthia Aparecida da Silva — Acadêmica de Arquitetura e Urbanismo | Técnica em Edificações</p>
-          <p className="mt-2">Chapecó — SC</p>
+          <p>&copy; 2025 Cynthia Aparecida da Silva, Acadêmica de Arquitetura e Urbanismo | Técnica em Edificações</p>
+          <p className="mt-2">Chapecó, SC</p>
         </div>
       </div>
     </footer>

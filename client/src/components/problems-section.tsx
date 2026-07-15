@@ -7,25 +7,25 @@ export default function ProblemsSection() {
       icon: Building2,
       title: "Órgãos Públicos",
       description:
-        "Atuei no Ministério Público de SC e na SEDUR, com análise e aprovação de projetos arquitetônicos, licenças para construção, regularização, Habite-se e atendimento ao público.",
+        "Atuei com análise e aprovação de projetos arquitetônicos, licenças para construção, regularização, Habite-se e atendimento ao público.",
     },
     {
       icon: Ruler,
       title: "Topografia e Soluções Ambientais",
       description:
-        "Na B&C Topografia, trabalhei com transformação de dados de campo em desenhos técnicos, conversão de coordenadas geográficas e elaboração de mapas, plantas e relatórios.",
+        "Trabalhei com transformação de dados de campo em desenhos técnicos, conversão de coordenadas geográficas e elaboração de mapas, plantas e relatórios.",
     },
     {
       icon: Briefcase,
       title: "Escritórios de Arquitetura",
       description:
-        "Na Vecctiza Empreendimentos e no escritório Elisete Giachini, auxiliei na elaboração de projetos arquitetônicos, paisagismo, complementares e detalhamentos de interiores.",
+        "Auxiliei na elaboração de projetos arquitetônicos, paisagismo, complementares e detalhamentos de interiores.",
     },
     {
       icon: GraduationCap,
       title: "Marcenaria e Interiores",
       description:
-        "Na X Móveis Marcenaria Sob Medida, atuei com projetos de interiores, visitas técnicas, medições e encaminhamento de projetos para produção.",
+        "Atuei com projetos de interiores, visitas técnicas, medições e encaminhamento de projetos para produção.",
     },
   ];
 
@@ -38,8 +38,8 @@ export default function ProblemsSection() {
             <span className="text-rose-antique"> Profissional</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Construí minha trajetória em diferentes áreas da construção civil —
-            do canteiro de obras ao detalhamento de interiores —, o que me proporcionou uma visão ampla, técnica e prática do processo projetual.
+            Construí minha trajetória em diferentes áreas da construção civil,
+            do canteiro de obras ao detalhamento de interiores, o que me proporcionou uma visão ampla, técnica e prática do processo projetual.
           </p>
         </div>
 

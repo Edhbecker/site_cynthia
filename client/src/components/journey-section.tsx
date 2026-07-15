@@ -11,7 +11,7 @@ export default function JourneySection() {
             <div className="smooth-entrance">
               <img
                 src={imagemProfissional}
-                alt="Cynthia Aparecida da Silva — Acadêmica de Arquitetura e Urbanismo"
+                alt="Cynthia Aparecida da Silva, Acadêmica de Arquitetura e Urbanismo"
                 className="w-full rounded-3xl shadow-xl hover-lift"
               />
             </div>
@@ -25,18 +25,18 @@ export default function JourneySection() {
                   Sou <strong>Cynthia Aparecida da Silva</strong>, acadêmica de Arquitetura e Urbanismo
                   pela UNOESC de Chapecó, atualmente no 9º período, e Técnica em Edificações. Minha
                   trajetória reúne experiências práticas em escritórios de arquitetura, engenharia,
-                  topografia, interiores, marcenaria sob medida e órgãos públicos — vivências que
+                  topografia, interiores, marcenaria sob medida e órgãos públicos, vivências que
                   me proporcionaram uma visão ampla e realista do processo projetual.
                 </p>
                 <p>
                   Busco unir criatividade, conhecimento técnico e funcionalidade em cada projeto,
                   desenvolvendo soluções que valorizam estética, conforto, organização dos espaços
                   e atenção aos detalhes. Acredito que um bom projeto nasce da escuta atenta e do
-                  cuidado com cada etapa — do conceito inicial à entrega final.
+                  cuidado com cada etapa, do conceito inicial à entrega final.
                 </p>
                 <p>
                   Meu objetivo é transformar ideias em ambientes reais, pensados com sensibilidade,
-                  propósito e uma base técnica sólida — sempre em constante evolução profissional
+                  propósito e uma base técnica sólida, sempre em constante evolução profissional
                   e acadêmica.
                 </p>
               </div>
