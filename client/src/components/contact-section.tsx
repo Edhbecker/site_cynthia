@@ -1,107 +1,70 @@
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { insertContactSchema, type InsertContact } from "@shared/schema";
+import { ArrowUpRight, Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { contact, professional } from "@/data/site-content";
+
+const contactItems = [
+  { label: "Telefone", value: contact.phone, href: contact.phoneHref, icon: Phone },
+  { label: "E-mail", value: contact.email, href: contact.emailHref, icon: Mail },
+  { label: "Instagram", value: contact.instagram, href: contact.instagramHref, icon: Instagram },
+];
 
 export default function ContactSection() {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const [selectedProjectType, setSelectedProjectType] = useState("");
-
-  const form = useForm<InsertContact>({
-    resolver: zodResolver(insertContactSchema),
-    defaultValues: { name: "", email: "", phone: "", projectType: "", message: "" },
-  });
-
-  const contactMutation = useMutation({
-    mutationFn: async (data: InsertContact) => apiRequest("POST", "/api/contacts", data),
-    onSuccess: () => {
-      toast({ title: "Mensagem enviada com sucesso!", description: "Entrarei em contato em breve. Obrigada pelo interesse!" });
-      form.reset();
-      setSelectedProjectType("");
-      queryClient.invalidateQueries({ queryKey: ["/api/contacts"] });
-    },
-    onError: (error: any) => {
-      toast({ title: "Erro ao enviar mensagem", description: error.message || "Tente novamente mais tarde.", variant: "destructive" });
-    },
-  });
-
-  const onSubmit = (data: InsertContact) => contactMutation.mutate(data);
-
   return (
-    <section id="contato" className="py-20 bg-gradient-to-br from-rose-antique/10 to-sage-green/10">
-      <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16 smooth-entrance">
-            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+    <section id="contato" aria-labelledby="contact-title" className="relative overflow-hidden bg-rose-antique text-white">
+      <div className="absolute -right-24 -top-24 size-96 rounded-full border border-white/15" aria-hidden="true" />
+      <div className="absolute -right-5 -top-5 size-64 rounded-full border border-white/15" aria-hidden="true" />
+
+      <div className="section-shell relative py-24 sm:py-32 lg:py-40">
+        <p className="section-kicker text-white/70">07 — Contato</p>
+        <div className="mt-8 grid gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+          <div>
+            <h2 id="contact-title" className="max-w-5xl font-playfair text-[clamp(3.3rem,7vw,7.5rem)] font-medium leading-[0.9] tracking-[-0.05em]">
               Vamos conversar sobre
-              <span className="text-rose-antique"> o seu projeto?</span>
+              <span className="block font-normal italic text-ink">o seu projeto?</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Tem uma ideia, um ambiente para transformar ou quer conhecer melhor o meu trabalho?
-              Entre em contato e vamos explorar juntos as possibilidades para o seu espaço.
+            <p className="mt-8 max-w-2xl text-base leading-relaxed text-white/80 sm:text-xl">
+              Tem uma ideia, um ambiente para transformar ou quer conhecer melhor
+              o meu trabalho? Entre em contato e vamos explorar juntos as
+              possibilidades para o seu espaço.
             </p>
+            <a
+              href={contact.whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              className="group mt-10 inline-flex items-center gap-4 rounded-full bg-ink px-7 py-4 font-semibold text-white transition-colors hover:bg-white hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-antique"
+            >
+              <MessageCircle className="size-5" aria-hidden="true" />
+              Conversar pelo WhatsApp
+              <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
           </div>
-          <div className="max-w-2xl mx-auto smooth-entrance">
-            <Card className="glass-morphism rounded-3xl shadow-lg">
-              <CardContent className="p-8">
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div>
-                    <Label htmlFor="name" className="text-gray-700 font-medium mb-2 block">Nome completo</Label>
-                    <Input id="name" {...form.register("name")} placeholder="Como posso te chamar?" className="rounded-xl border-gray-200 focus:ring-2 focus:ring-rose-antique/50" />
-                    {form.formState.errors.name && <p className="text-red-500 text-sm mt-1">{form.formState.errors.name.message}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="email" className="text-gray-700 font-medium mb-2 block">Email</Label>
-                    <Input id="email" type="email" {...form.register("email")} placeholder="seu@email.com" className="rounded-xl border-gray-200 focus:ring-2 focus:ring-rose-antique/50" />
-                    {form.formState.errors.email && <p className="text-red-500 text-sm mt-1">{form.formState.errors.email.message}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="phone" className="text-gray-700 font-medium mb-2 block">Telefone</Label>
-                    <Input id="phone" type="tel" {...form.register("phone")} placeholder="(49) 9 9968-6054" className="rounded-xl border-gray-200 focus:ring-2 focus:ring-rose-antique/50" />
-                    {form.formState.errors.phone && <p className="text-red-500 text-sm mt-1">{form.formState.errors.phone.message}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="projectType" className="text-gray-700 font-medium mb-2 block">Tipo de projeto</Label>
-                    <Select value={selectedProjectType} onValueChange={(value) => { setSelectedProjectType(value); form.setValue("projectType", value); }}>
-                      <SelectTrigger className="rounded-xl border-gray-200 focus:ring-2 focus:ring-rose-antique/50">
-                        <SelectValue placeholder="Selecione uma opção" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="arquitetonico">Projeto Arquitetônico</SelectItem>
-                        <SelectItem value="interiores">Projeto de Interiores</SelectItem>
-                        <SelectItem value="luminotecnico">Projeto Luminotécnico</SelectItem>
-                        <SelectItem value="reforma">Reforma e Readequação de Ambientes</SelectItem>
-                        <SelectItem value="detalhamento">Detalhamento Técnico</SelectItem>
-                        <SelectItem value="modelagem3d">Modelagem 3D e Renderização</SelectItem>
-                        <SelectItem value="outro">Outro</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {form.formState.errors.projectType && <p className="text-red-500 text-sm mt-1">{form.formState.errors.projectType.message}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="message" className="text-gray-700 font-medium mb-2 block">Conte-me sobre o seu projeto</Label>
-                    <Textarea id="message" {...form.register("message")} rows={4} placeholder="Descreva sua ideia, o ambiente que deseja transformar..." className="rounded-xl border-gray-200 focus:ring-2 focus:ring-rose-antique/50" />
-                    {form.formState.errors.message && <p className="text-red-500 text-sm mt-1">{form.formState.errors.message.message}</p>}
-                  </div>
-                  <Button type="submit" disabled={contactMutation.isPending} className="w-full bg-rose-antique hover:bg-rose-antique/90 text-white py-4 rounded-xl font-medium transition-all shadow-lg hover:shadow-xl">
-                    {contactMutation.isPending ? "Enviando..." : "Enviar mensagem"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
+
+          <address className="not-italic">
+            <div className="border-t border-white/30">
+              {contactItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.label === "Instagram" ? "_blank" : undefined}
+                  rel={item.label === "Instagram" ? "noreferrer" : undefined}
+                  className="group grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 border-b border-white/30 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+                >
+                  <item.icon className="size-5 text-ink" aria-hidden="true" />
+                  <span>
+                    <span className="block text-xs uppercase tracking-[0.18em] text-white/65">{item.label}</span>
+                    <span className="mt-1 block break-all font-medium sm:text-lg">{item.value}</span>
+                  </span>
+                  <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                </a>
+              ))}
+              <div className="grid grid-cols-[2.5rem_1fr] items-center gap-4 border-b border-white/30 py-5">
+                <MapPin className="size-5 text-ink" aria-hidden="true" />
+                <span>
+                  <span className="block text-xs uppercase tracking-[0.18em] text-white/65">Localização</span>
+                  <span className="mt-1 block font-medium sm:text-lg">{professional.location}</span>
+                </span>
+              </div>
+            </div>
+          </address>
         </div>
       </div>
     </section>

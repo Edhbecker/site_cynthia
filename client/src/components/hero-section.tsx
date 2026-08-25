@@ -1,55 +1,69 @@
-import { Button } from "@/components/ui/button";
-import { scrollToSection } from "@/lib/utils";
+import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
+import { professional, projects } from "@/data/site-content";
 
 export default function HeroSection() {
   return (
-    <section id="inicio" className="min-h-screen relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 architectural-pattern opacity-30"></div>
+    <section
+      id="inicio"
+      aria-labelledby="hero-title"
+      className="relative flex min-h-[44rem] items-end overflow-hidden bg-ink pt-24 text-white sm:min-h-screen"
+    >
+      <img
+        src={projects[0].image}
+        alt=""
+        className="hero-image absolute inset-0 size-full object-cover"
+        width="1200"
+        height="900"
+        decoding="async"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/15" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/25" />
 
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-rose-antique/20 to-sage-green/20">
-        <img
-          src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080"
-          alt="Ambiente elegante de design de interiores"
-          className="w-full h-full object-cover opacity-60"
-        />
-      </div>
-
-      <div className="relative z-10 container mx-auto px-6 flex items-center min-h-screen">
-        <div className="max-w-3xl smooth-entrance">
-          <h1 className="font-playfair text-5xl md:text-7xl font-bold text-gray-800 leading-tight mb-6">
-            Projetando espaços que
-            <span className="text-rose-antique"> transformam o seu dia a dia.</span>
-          </h1>
-
-          <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-            Sou acadêmica de Arquitetura e Urbanismo e Técnica em Edificações, com vivência prática em{" "}
-            <span className="font-semibold">projetos de interiores, detalhamento técnico e soluções funcionais</span>,
-            unindo criatividade e precisão em cada ambiente.
+      <div className="relative mx-auto grid w-full max-w-[90rem] gap-12 px-5 pb-12 pt-28 sm:px-8 sm:pb-16 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end lg:px-12 lg:pb-20">
+        <div className="max-w-5xl animate-entrance">
+          <p className="mb-7 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.28em] text-white/70 sm:text-sm">
+            <span className="h-px w-10 bg-rose-antique" aria-hidden="true" />
+            Arquitetura &amp; Interiores
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button
-              onClick={() => scrollToSection("contato")}
-              className="bg-rose-antique hover:bg-rose-antique/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all shadow-lg hover:shadow-xl hover-lift"
+          <h1
+            id="hero-title"
+            className="max-w-5xl font-playfair text-[clamp(3.6rem,9.5vw,8.6rem)] font-medium leading-[0.86] tracking-[-0.055em]"
+          >
+            Cynthia
+            <span className="block pl-[0.12em] font-normal italic text-terracotta sm:pl-[0.45em]">
+              Aparecida.
+            </span>
+          </h1>
+          <div className="mt-9 grid max-w-4xl gap-8 border-t border-white/25 pt-7 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <p className="max-w-2xl text-base leading-relaxed text-white/78 sm:text-lg lg:text-xl">
+              Acadêmica de Arquitetura e Urbanismo e Técnica em Edificações,
+              com vivência prática em projetos de interiores, detalhamento
+              técnico e soluções funcionais.
+            </p>
+            <a
+              href="#projetos"
+              className="group inline-flex w-fit items-center gap-3 rounded-full bg-rose-antique px-6 py-3.5 font-semibold text-white transition-colors hover:bg-terracotta hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
             >
-              Vamos conversar sobre seu projeto
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => scrollToSection("projetos")}
-              className="border-2 border-rose-antique text-rose-antique hover:bg-rose-antique hover:text-white px-8 py-4 rounded-full text-lg font-medium transition-all hover-lift"
-            >
-              Conheça meus projetos
-            </Button>
+              Ver projetos
+              <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
           </div>
         </div>
+
+        <aside className="hidden border-l border-white/25 pl-7 text-sm text-white/70 lg:block">
+          <MapPin className="mb-5 size-5 text-terracotta" aria-hidden="true" />
+          <p className="mb-2 font-semibold text-white">{professional.location}</p>
+          <p className="leading-relaxed">Criatividade e precisão em cada ambiente.</p>
+        </aside>
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute top-1/4 right-10 w-20 h-20 bg-terracotta/30 organic-shape floating-element hidden lg:block"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-16 h-16 bg-sage-green/30 rounded-full floating-element hidden lg:block"></div>
+      <a
+        href="#sobre"
+        aria-label="Conhecer Cynthia"
+        className="absolute bottom-5 right-5 hidden size-12 place-items-center rounded-full border border-white/25 text-white/75 transition-colors hover:bg-white hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-antique sm:grid lg:right-12"
+      >
+        <ArrowDown className="size-5" aria-hidden="true" />
+      </a>
     </section>
   );
 }

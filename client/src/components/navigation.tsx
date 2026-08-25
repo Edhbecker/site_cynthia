@@ -1,120 +1,109 @@
-import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { scrollToSection } from "@/lib/utils";
+import { professional } from "@/data/site-content";
+
+const navigationItems = [
+  { label: "Sobre", href: "#sobre" },
+  { label: "Projetos", href: "#projetos" },
+  { label: "Serviços", href: "#servicos" },
+  { label: "Processo", href: "#processo" },
+];
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [location, setLocation] = useLocation();
-  const isHome = location === "/";
 
-  const menuItems = [
-    { label: "Início", href: "inicio", route: "/" },
-    { label: "Projetos", href: "projetos", route: "/projetos" },
-    { label: "Sobre Mim", href: "jornada", route: "/#jornada" },
-    { label: "Meu Processo", href: "processo", route: "/#processo" },
-  ];
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
 
-  const handleNavClick = (item: { href: string; route: string }) => {
-    setIsMenuOpen(false);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
 
-    if (item.href === "projetos") {
-      // Navigate using wouter's setLocation for a smooth SPA experience
-      setLocation("/projetos");
-      return;
-    }
-
-    if (isHome) {
-      // On home page, scroll to section
-      scrollToSection(item.href);
-    } else {
-      // On other pages, navigate to home with anchor
-      window.location.href = item.route;
-    }
-  };
-
-  const handleContactClick = () => {
-    setIsMenuOpen(false);
-    if (isHome) {
-      scrollToSection("contato");
-    } else {
-      window.location.href = "/#contato";
-    }
-  };
-
-  const handleLogoClick = () => {
-    if (isHome) {
-      scrollToSection("inicio");
-    }
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 glass-morphism shadow-sm">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <Link href="/" onClick={handleLogoClick}>
-            <div className="flex items-center space-x-3 cursor-pointer">
-              <div className="w-10 h-10 gradient-rose-antique rounded-full flex items-center justify-center">
-                <span className="text-white font-playfair font-bold text-lg">C</span>
-              </div>
-              <span className="font-playfair text-xl font-semibold text-gray-800">
-                Cynthia A. da Silva
-              </span>
-            </div>
-          </Link>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/15 bg-ink/80 text-white backdrop-blur-xl">
+      <nav
+        aria-label="Navegação principal"
+        className="mx-auto flex h-[4.75rem] max-w-[90rem] items-center justify-between px-5 sm:px-8 lg:px-12"
+      >
+        <a
+          href="#inicio"
+          onClick={closeMenu}
+          className="group inline-flex items-center gap-3 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-antique focus-visible:ring-offset-4 focus-visible:ring-offset-ink"
+          aria-label="Ir para o início"
+        >
+          <span className="grid size-10 place-items-center rounded-full border border-white/35 bg-rose-antique font-playfair text-lg font-semibold transition-transform duration-300 group-hover:rotate-6">
+            C
+          </span>
+          <span className="leading-tight">
+            <span className="block font-playfair text-lg font-semibold tracking-wide sm:text-xl">
+              {professional.shortName}
+            </span>
+            <span className="hidden text-[0.62rem] uppercase tracking-[0.22em] text-white/60 sm:block">
+              Arquitetura &amp; Interiores
+            </span>
+          </span>
+        </a>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => handleNavClick(item)}
-                className="text-gray-700 hover:text-rose-antique transition-colors font-medium"
-              >
-                {item.label}
-              </button>
-            ))}
-            <Button
-              onClick={handleContactClick}
-              className="bg-rose-antique hover:bg-rose-antique/90 text-white px-6 py-2 rounded-full transition-all shadow-lg hover:shadow-xl"
+        <div className="hidden items-center gap-7 lg:flex">
+          {navigationItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="nav-link rounded-sm text-sm font-medium text-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-antique"
             >
-              Contato
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="#contato"
+            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-rose-antique hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
+            Contato
+          </a>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-4 border-t border-gray-200 pt-4">
-            {menuItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => handleNavClick(item)}
-                className="block w-full text-left text-gray-700 hover:text-rose-antique transition-colors font-medium py-2"
-              >
-                {item.label}
-              </button>
-            ))}
-            <Button
-              onClick={handleContactClick}
-              className="w-full bg-rose-antique hover:bg-rose-antique/90 text-white rounded-full transition-all"
+        <button
+          type="button"
+          className="grid size-11 place-items-center rounded-full border border-white/25 transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-antique lg:hidden"
+          onClick={() => setIsMenuOpen((current) => !current)}
+          aria-expanded={isMenuOpen}
+          aria-controls="menu-mobile"
+          aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+        >
+          {isMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
+      </nav>
+
+      <div
+        id="menu-mobile"
+        className={`overflow-hidden border-t border-white/10 bg-ink transition-[max-height,opacity] duration-300 lg:hidden ${
+          isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="mx-auto grid max-w-[90rem] gap-1 px-5 py-5 sm:px-8">
+          {navigationItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={closeMenu}
+              className="rounded-lg px-3 py-3 text-lg text-white/85 transition-colors hover:bg-white/10 hover:text-white"
             >
-              Contato
-            </Button>
-          </div>
-        )}
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="#contato"
+            onClick={closeMenu}
+            className="mt-2 rounded-full bg-rose-antique px-5 py-3 text-center font-semibold text-white"
+          >
+            Vamos conversar
+          </a>
+        </div>
       </div>
-    </nav>
+    </header>
   );
 }

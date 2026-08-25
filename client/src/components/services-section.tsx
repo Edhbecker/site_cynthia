@@ -1,71 +1,40 @@
-import { Home, Sofa, Lamp, Paintbrush, Ruler, PenTool } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { services } from "@/data/site-content";
 
 export default function ServicesSection() {
-  const services = [
-    {
-      icon: Sofa,
-      title: "Projetos de Interiores",
-      description: "Desenvolvimento de ambientes residenciais com foco em conforto, estética e funcionalidade",
-    },
-    {
-      icon: Ruler,
-      title: "Detalhamento Técnico",
-      description: "Detalhamentos construtivos, marcenaria planejada e especificações de materiais",
-    },
-    {
-      icon: Lamp,
-      title: "Iluminação e Ambientação",
-      description: "Projetos de iluminação que valorizam cada ambiente com aconchego e personalidade",
-    },
-    {
-      icon: PenTool,
-      title: "Modelagem 3D e Renderização",
-      description: "Visualização realista dos projetos em SketchUp, Lumion, Enscape e 5D Render",
-    },
-    {
-      icon: Paintbrush,
-      title: "Composição de Materiais",
-      description: "Seleção e harmonização de revestimentos, cores, texturas e acabamentos",
-    },
-    {
-      icon: Home,
-      title: "Consultoria e Apoio Projetual",
-      description: "Orientação técnica em todas as etapas, do briefing à execução do projeto",
-    },
-  ];
-
   return (
-    <section className="py-20 bg-gradient-to-br from-sage-green/10 to-architectural-cream">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16 smooth-entrance">
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            O que posso desenvolver
-            <span className="text-rose-antique"> para você</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Soluções completas em projetos de interiores, com atenção ao detalhamento técnico,
-            à escolha de materiais e à personalização de cada ambiente.
-          </p>
-        </div>
+    <section id="servicos" aria-labelledby="services-title" className="section-block bg-ink text-white">
+      <div className="section-shell">
+        <div className="grid gap-8 md:grid-cols-[0.7fr_1.3fr] md:items-start">
+          <div className="md:sticky md:top-28">
+            <p className="section-kicker text-terracotta">03 — Serviços</p>
+            <h2 id="services-title" className="display-title mt-6 max-w-xl text-white">
+              O que posso desenvolver
+              <span className="block font-normal italic text-terracotta">para você.</span>
+            </h2>
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/60 sm:text-lg">
+              Soluções completas em projetos de interiores, com atenção ao
+              detalhamento técnico, à escolha de materiais e à personalização
+              de cada ambiente.
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {services.map((service, index) => (
-            <Card
-              key={index}
-              className="glass-morphism rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover-lift"
-            >
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 gradient-rose-antique rounded-full flex items-center justify-center mx-auto mb-6">
-                  <service.icon className="text-white w-8 h-8" />
+          <ol className="border-t border-white/20">
+            {services.map((service, index) => (
+              <li
+                key={service.title}
+                className="group grid gap-4 border-b border-white/20 py-8 sm:grid-cols-[3rem_1fr_1fr] sm:items-start sm:gap-6 lg:py-10"
+              >
+                <span className="font-playfair text-lg italic text-terracotta">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="flex items-center gap-4">
+                  <service.icon className="size-6 shrink-0 text-terracotta transition-transform duration-300 group-hover:rotate-6" aria-hidden="true" />
+                  <h3 className="font-playfair text-2xl font-medium sm:text-3xl">{service.title}</h3>
                 </div>
-                <h3 className="font-playfair text-xl font-semibold text-gray-800 mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600">{service.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+                <p className="leading-relaxed text-white/60">{service.description}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

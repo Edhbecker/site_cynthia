@@ -1,64 +1,41 @@
-import { Briefcase, GraduationCap, Building2, Ruler } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { experiences } from "@/data/site-content";
 
 export default function ProblemsSection() {
-  const experiences = [
-    {
-      icon: Building2,
-      title: "Órgãos Públicos",
-      description:
-        "Atuei com análise e aprovação de projetos arquitetônicos, licenças para construção, regularização, Habite-se e atendimento ao público.",
-    },
-    {
-      icon: Ruler,
-      title: "Topografia e Soluções Ambientais",
-      description:
-        "Trabalhei com transformação de dados de campo em desenhos técnicos, conversão de coordenadas geográficas e elaboração de mapas, plantas e relatórios.",
-    },
-    {
-      icon: Briefcase,
-      title: "Escritórios de Arquitetura",
-      description:
-        "Auxiliei na elaboração de projetos arquitetônicos, paisagismo, complementares e detalhamentos de interiores.",
-    },
-    {
-      icon: GraduationCap,
-      title: "Marcenaria e Interiores",
-      description:
-        "Atuei com projetos de interiores, visitas técnicas, medições e encaminhamento de projetos para produção.",
-    },
-  ];
-
   return (
-    <section id="experiencia" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16 smooth-entrance">
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Experiência
-            <span className="text-rose-antique"> Profissional</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Construí minha trajetória em diferentes áreas da construção civil,
-            do canteiro de obras ao detalhamento de interiores, o que me proporcionou uma visão ampla, técnica e prática do processo projetual.
-          </p>
+    <section id="experiencia" aria-labelledby="experience-title" className="section-block bg-white">
+      <div className="section-shell">
+        <div className="grid gap-8 border-b border-ink/15 pb-10 md:grid-cols-[0.65fr_1.35fr] md:items-end">
+          <p className="section-kicker">05 — Trajetória</p>
+          <div>
+            <h2 id="experience-title" className="display-title max-w-4xl">
+              Experiência ampla,
+              <span className="block font-normal italic text-rose-antique">visão integrada.</span>
+            </h2>
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink/65">
+              Construí minha trajetória em diferentes áreas da construção civil,
+              do canteiro de obras ao detalhamento de interiores, o que me
+              proporcionou uma visão ampla, técnica e prática do processo projetual.
+            </p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {experiences.map((exp, index) => (
-            <Card
-              key={index}
-              className="glass-morphism rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover-lift"
+        <div className="mt-12 grid gap-x-10 lg:grid-cols-2">
+          {experiences.map((experience, index) => (
+            <article
+              key={experience.title}
+              className="grid grid-cols-[3.5rem_1fr] gap-5 border-b border-ink/15 py-8 sm:grid-cols-[5rem_1fr] sm:py-10"
             >
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 gradient-rose-antique rounded-full flex items-center justify-center mx-auto mb-6">
-                  <exp.icon className="text-white w-8 h-8" />
-                </div>
-                <h3 className="font-playfair text-xl font-semibold text-gray-800 mb-3">
-                  {exp.title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{exp.description}</p>
-              </CardContent>
-            </Card>
+              <div className="grid size-12 place-items-center rounded-full bg-rose-antique/12 text-rose-antique sm:size-14">
+                <experience.icon className="size-6" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="mb-2 text-xs uppercase tracking-[0.2em] text-ink/40">
+                  Experiência {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="font-playfair text-2xl font-semibold text-ink">{experience.title}</h3>
+                <p className="mt-4 leading-relaxed text-ink/65">{experience.description}</p>
+              </div>
+            </article>
           ))}
         </div>
       </div>

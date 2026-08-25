@@ -1,89 +1,58 @@
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight } from "lucide-react";
-import type { Project } from "@shared/schema";
+import { ArrowDownRight } from "lucide-react";
+import { projects } from "@/data/site-content";
 
 export default function ProjectsGallery() {
-  const { data: projects, isLoading } = useQuery<Project[]>({
-    queryKey: ["/api/projects/featured"],
-  });
-
   return (
-    <section id="projetos" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16 smooth-entrance">
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Projetos de
-            <span className="text-rose-antique"> Interiores</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ambientes residenciais projetados com foco em conforto, funcionalidade, estética contemporânea
-            e aproveitamento inteligente dos espaços, cada detalhe pensado para criar lugares que
-            acolhem e inspiram.
-          </p>
+    <section id="projetos" aria-labelledby="projects-title" className="section-block bg-white">
+      <div className="section-shell">
+        <div className="grid gap-8 border-b border-ink/15 pb-10 md:grid-cols-[0.65fr_1.35fr] md:items-end">
+          <p className="section-kicker">02 — Portfólio</p>
+          <div>
+            <h2 id="projects-title" className="display-title max-w-4xl">
+              Projetos de
+              <span className="font-normal italic text-rose-antique"> interiores.</span>
+            </h2>
+            <p className="mt-6 max-w-3xl text-base leading-relaxed text-ink/65 sm:text-lg">
+              Ambientes residenciais projetados com foco em conforto, funcionalidade,
+              estética contemporânea e aproveitamento inteligente dos espaços — cada
+              detalhe pensado para criar lugares que acolhem e inspiram.
+            </p>
+          </div>
         </div>
 
-        {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, i) => (
-              <Card key={i} className="overflow-hidden rounded-3xl">
-                <Skeleton className="h-64 w-full" />
-                <div className="p-6">
-                  <Skeleton className="h-6 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-full" />
-                </div>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects?.map((project) => (
-              <Link key={project.id} href={`/projetos/${project.id}`}>
-                <Card className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover-lift cursor-pointer h-full">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={project.imageUrl}
-                      alt={project.title}
-                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-
-                    {/* Category Badge */}
-                    <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
-                      {project.category}
-                    </span>
-
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="font-playfair text-xl font-semibold mb-2 group-hover:text-rose-antique transition-colors duration-300">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm opacity-90 mb-3 line-clamp-2">{project.description}</p>
-                      <span className="inline-flex items-center text-rose-antique font-medium text-sm group-hover:text-white transition-colors duration-300">
-                        Ver detalhes do projeto
-                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                      </span>
-                    </div>
+        <div className="portfolio-grid mt-12 sm:mt-16">
+          {projects.map((project, index) => (
+            <article key={project.id} className={`portfolio-item portfolio-item-${index + 1}`}>
+              <figure className="group relative size-full min-h-[23rem] overflow-hidden bg-ink sm:min-h-[30rem]">
+                <img
+                  src={project.image}
+                  alt={project.alt}
+                  className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                  sizes={index === 0 ? "(min-width: 1024px) 66vw, 100vw" : "(min-width: 1024px) 42vw, 100vw"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/5 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8">
+                  <div className="mb-4 flex items-center justify-between gap-4 text-xs uppercase tracking-[0.2em] text-white/70">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span>{project.category}</span>
                   </div>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        )}
+                  <h3 className="font-playfair text-3xl font-medium sm:text-4xl">{project.title}</h3>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/75 sm:text-base">
+                    {project.description}
+                  </p>
+                </div>
+              </figure>
+            </article>
+          ))}
+        </div>
 
-        {/* Ver todos button */}
-        <div className="text-center mt-12">
-          <Link href="/projetos">
-            <Button
-              variant="outline"
-              className="border-2 border-rose-antique text-rose-antique hover:bg-rose-antique hover:text-white px-8 py-4 rounded-full text-lg font-medium transition-all hover-lift"
-            >
-              Ver todos os projetos
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </Link>
+        <div className="mt-10 flex items-center justify-end gap-3 text-sm text-ink/55">
+          <span>06 projetos apresentados</span>
+          <ArrowDownRight className="size-5 text-rose-antique" aria-hidden="true" />
         </div>
       </div>
     </section>
